@@ -103,9 +103,158 @@ and wide with SpaceX's reusable rockets.</p>
 
 <h2>Code</h2>
 
-<p>To view the source as well as comments, check it out on GitHub</p>
+<p>View <a href="https://github.com/jdavis/rust-design-patterns/blob/master/patterns/adapter.rs">adapter.rs</a> on GitHub</p>
 
-<p><a href="/patterns/adapter.rs">/patterns/adapter.rs:</a></p>
+<div class="highlight"><pre><code class="rust"><span class="cm">/*</span>
+<span class="cm"> * Core Trait that defines a basic Rocket Ship</span>
+<span class="cm"> */</span>
+<span class="k">trait</span> <span class="n">RocketShip</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="n">turn_on</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">);</span>
+    <span class="k">fn</span> <span class="n">turn_off</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">);</span>
+    <span class="k">fn</span> <span class="n">blast_off</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">);</span>
+    <span class="k">fn</span> <span class="n">fly</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Basic struct for a NASA Ship</span>
+<span class="cm"> */</span>
+<span class="k">struct</span> <span class="n">NASAShip</span><span class="p">;</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Implement RocketShip trait to add functionality to NASAShip</span>
+<span class="cm"> */</span>
+<span class="k">impl</span> <span class="n">RocketShip</span> <span class="k">for</span> <span class="n">NASAShip</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="n">turn_on</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;NASA Ship is turning on.&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">fn</span> <span class="n">turn_off</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;NASA Ship is turning off.&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">fn</span> <span class="n">blast_off</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;NASA Ship is blasting off.&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">fn</span> <span class="n">fly</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;NASA Ship is flying away.&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Uh oh, here is our problem. It&#39;s the amazingly advanced SpaceX ship that our</span>
+<span class="cm"> * astronaut doesn&#39;t know how to pilot.</span>
+<span class="cm"> */</span>
+<span class="k">trait</span> <span class="n">SpaceXShip</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="n">ignition</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">);</span>
+    <span class="k">fn</span> <span class="n">on</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">);</span>
+    <span class="k">fn</span> <span class="n">off</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">);</span>
+    <span class="k">fn</span> <span class="n">launch</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">);</span>
+    <span class="k">fn</span> <span class="n">fly</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Basic struct for a SpaceX Dragon rocket ship</span>
+<span class="cm"> */</span>
+<span class="k">struct</span> <span class="n">SpaceXDragon</span><span class="p">;</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Implement the SpaceX trait to add functionality to the Space X Dragon</span>
+<span class="cm"> */</span>
+<span class="k">impl</span> <span class="n">SpaceXShip</span> <span class="k">for</span> <span class="n">SpaceXDragon</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="n">ignition</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;Turning Dragon&#39;s ignition.&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">fn</span> <span class="n">on</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;Turning on the Dragon.&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">fn</span> <span class="n">off</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;Turing off the Dragon.&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">fn</span> <span class="n">launch</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;Launching the Dragon&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">fn</span> <span class="n">fly</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;The Dragon is flying away.&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Uh oh, the new SpaceXDragon doesn&#39;t implement the RocketShip interface. We</span>
+<span class="cm"> * need to create an adapter that does.</span>
+<span class="cm"> */</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Adapter to adapt anything that implements SpaceXShip to the RocketShip trait</span>
+<span class="cm"> */</span>
+<span class="k">struct</span> <span class="n">SpaceXAdapter</span> <span class="p">{</span>
+    <span class="n">ship</span><span class="o">:</span> <span class="n">SpaceXDragon</span>
+<span class="p">}</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * SpaceX Adapter that adds RocketShip traits to any SpaceXShip</span>
+<span class="cm"> */</span>
+<span class="k">impl</span> <span class="n">RocketShip</span> <span class="k">for</span> <span class="n">SpaceXAdapter</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="n">turn_on</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">ship</span><span class="p">.</span><span class="n">ignition</span><span class="p">();</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">ship</span><span class="p">.</span><span class="n">on</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">fn</span> <span class="n">turn_off</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">ship</span><span class="p">.</span><span class="n">off</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">fn</span> <span class="n">blast_off</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">ship</span><span class="p">.</span><span class="n">launch</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">fn</span> <span class="n">fly</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">ship</span><span class="p">.</span><span class="n">fly</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Basic function to pilot ships that implement the RocketShip trait</span>
+<span class="cm"> */</span>
+<span class="k">fn</span> <span class="n">pilot</span><span class="o">&lt;</span><span class="n">S</span><span class="o">:</span> <span class="n">RocketShip</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ship</span><span class="o">:</span> <span class="o">&amp;</span><span class="n">S</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">ship</span><span class="p">.</span><span class="n">turn_on</span><span class="p">();</span>
+    <span class="n">ship</span><span class="p">.</span><span class="n">blast_off</span><span class="p">();</span>
+    <span class="n">ship</span><span class="p">.</span><span class="n">fly</span><span class="p">();</span>
+    <span class="n">ship</span><span class="p">.</span><span class="n">turn_off</span><span class="p">();</span>
+    <span class="n">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">fn</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Create a new NASAShip</span>
+    <span class="k">let</span> <span class="n">saturn5</span> <span class="o">=</span> <span class="n">NASAShip</span><span class="p">;</span>
+
+    <span class="c1">// Let&#39;s fly our NASAShip</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Piloting the Saturn 5.&quot;</span><span class="p">);</span>
+    <span class="n">pilot</span><span class="p">(</span><span class="o">&amp;</span><span class="n">saturn5</span><span class="p">);</span>
+
+    <span class="c1">// Create a Dragon</span>
+    <span class="k">let</span> <span class="n">dragon</span> <span class="o">=</span> <span class="n">SpaceXDragon</span><span class="p">;</span>
+
+    <span class="c1">// Uh oh, our pilot function doesn&#39;t recognize this ship...</span>
+    <span class="c1">// pilot(&amp;dragon); &lt;-- Gives a compile time error.</span>
+
+    <span class="c1">// Let&#39;s Adapt our SpaceXDragon ship</span>
+    <span class="k">let</span> <span class="n">dragon_adapter</span> <span class="o">=</span> <span class="n">SpaceXAdapter</span> <span class="p">{</span>
+        <span class="n">ship</span><span class="o">:</span> <span class="n">dragon</span>
+    <span class="p">};</span>
+
+    <span class="c1">// Now we can pilot the Dragon!</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Piloting the Dragon Adapter.&quot;</span><span class="p">);</span>
+    <span class="n">pilot</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dragon_adapter</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+
 
                 </div>
             </div>
