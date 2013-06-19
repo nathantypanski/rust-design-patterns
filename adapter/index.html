@@ -6,7 +6,7 @@
         <meta name="description" content="Personal web page for Josh L. Davis" />
         <meta name="author" content="Josh Davis" />
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-        <link rel="alternate" type="application/rss+xml" title="Josh Davis's Personal Site" href="http://joshldavis.com/atom.xml">
+        <link rel="alternate" type="application/rss+xml" title="Josh Davis's Personal Site" href="http://joshldavis.com/rust-design-patterns/atom.xml">
     
         <link href="/css/base.css" rel="stylesheet" type="text/css">
     
@@ -65,21 +65,35 @@
 
 <p>Also Known As: <strong>Wrapper</strong></p>
 
+<h2>Definition</h2>
+
 <p>Convert the interface of a class into another interface clients expect.
 Adapter lets classes work together that couldn't otherwise because of
 incompatible interfaces.</p>
 
 <h2>Problem</h2>
 
-<p>pass</p>
+<p>Often systems of code need to interact. If this is designed from the start then
+there is no problem. One system defines an abstraction and the other system
+adds implementation for that interface.</p>
+
+<p>The problem arises when the system that uses the abstraction changes its
+requirements. If the implementation changes, then the interface is now broken.</p>
 
 <h2>Wrong Solution</h2>
 
-<p>pass</p>
+<p>One way to fix this is to just rewrite the system the interface to still match
+the new implementation. This is <em>can</em> work in some cases but depending on the
+size of the system it might not be feasible.</p>
 
 <h2>Correct Solution</h2>
 
-<p>pass</p>
+<p>The correct solution using the Adapter pattern would be to just make a middle
+layer that <strong>adapts</strong> the interface the first system expects into the new
+implementation.</p>
+
+<p>This mitigates the need to rewrite both systems yet allows flexibility in case
+systems continue to change.</p>
 
 <h2>Example Info</h2>
 
@@ -91,7 +105,7 @@ decades. All was well in the galaxy.</p>
 <p>However in 2010, NASA shut down the Space Shuttle program. The Astronauts
 were out of jobs and started to look for new ones. Once the Astronauts realized
 that their space suits made for poor work attire on Earth, they knew they had to
-revist the stars. So they went to the next best company to work for, SpaceX.
+revisit the stars. So they went to the next best company to work for, SpaceX.
 When they got to SpaceX they realized that technology had changed quite a bit
 since the 60s. SpaceX realized this as well, so to compensate for the Astronauts
 they came up with an idea to use the Adapter pattern.</p>
@@ -101,7 +115,17 @@ interface of the NASA Space Shuttles to SpaceX's new rocket ships. The
 Astronauts now had no problem flying SpaceX's ships through the galaxy.</p>
 
 <p>Together the Astronauts and SpaceX were able to settle the galaxy far
-and wide with SpaceX's reusable rockets.</p>
+and wide.</p>
+
+<h2>Diagram</h2>
+
+<div class="gallery one">
+    <a href="http://joshldavis.com/rust-design-patterns/img/adapter.png" rel="lightbox" title="Example of the Adapter Design Pattern.">
+        <img src="http://joshldavis.com/rust-design-patterns/img/adapter.png">
+        <span>Example of the Adapter Design Pattern.</span>
+    </a>
+</div>
+
 
 <h2>Code</h2>
 
