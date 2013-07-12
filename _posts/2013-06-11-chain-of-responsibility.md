@@ -16,11 +16,19 @@ js:
 
 ## Definition
 
-TODO
+Avoid coupling the sender of a request to its receiver by giving more than one
+object a chance to handle the request. Chain the receiving objects and pass the
+request along the chain until an object handles it.
 
 ## Diagram
 
-TODO
+<div class="gallery medium">
+    <a href="{{ site.url }}/img/chain-of-responsibility-structure.png" rel="lightbox"
+    title="Structure of the Chain of Responsibility pattern">
+        <img src="{{ site.url }}/img/chain-of-responsibility-structure.png" width="620">
+        <span>Structure of the Chain of Responsibility pattern</span>
+    </a>
+</div>
 
 ## Problem
 
