@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Abstract Factory - Rust Design Patterns - Josh Davis</title>
+        <meta name="description" content="Abstract factory design pattern in the Rust programming language with example." />
+        <meta name="author" content="Josh Davis" />
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <link rel="alternate" type="application/rss+xml" title="Rust Design Patterns" href="http://joshldavis.com//atom.xml">
+    
+        <link href="http://joshldavis.com//css/base.css" rel="stylesheet" type="text/css">
+    
+        <link href="http://joshldavis.com//lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+        <link href="http://joshldavis.com/http://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet" type="text/css">
+    
+    
+        
+        <link href="http://joshldavis.com//css/code.css" rel="stylesheet" type="text/css">
+        
+        <link href="http://joshldavis.com//lib/lightbox/css/lightbox.css" rel="stylesheet" type="text/css">
+        
+    
+    </head>
+
+	<body>
+        <a href="https://github.com/jdavis/rust-design-patterns/">
+            <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+        </a>
+        <div class="container">
+            <div class="side">
+                <ul>
+                    <li><a href="http://joshldavis.com/"><i class="icon-double-angle-left"></i> Return to joshldavis.com</a></li>
+                </ul>
+
+                <div class="logo">
+                    <img src="http://joshldavis.com/rust-design-patterns/img/rust-logo.png" alt="Rust Lang logo"/>
+                </div>
+
+                <h2>Rust Design Patterns</h2>
+                <ul>
+                    <li><a href="http://joshldavis.com/rust-design-patterns">Home</a></li>
+                    <li><a href="https://github.com/jdavis/rust-design-patterns">Source Code</a></li>
+                    <li><a href="https://github.com/jdavis/rust-design-patterns/issues">Issues</a></li>
+                
+                    <li><a href="http://joshldavis.com/rust-design-patterns/what">What is a Design Pattern?</a></li>
+                
+                    <li><a href="http://joshldavis.com/rust-design-patterns/instructions">How do you use a Design Pattern?</a></li>
+                
+                </ul>
+
+                <h3>Creational</h3>
+                <ul>
+                
+                    <li><a href="http://joshldavis.com/rust-design-patterns/abstract-factory">Abstract Factory</a></li>
+                
+                </ul>
+
+                <h3>Structural</h3>
+                <ul>
+                
+                    <li><a href="http://joshldavis.com/rust-design-patterns/adapter">Adapter</a></li>
+                
+                </ul>
+
+                <h3>Behavioral</h3>
+                <ul>
+                
+                </ul>
+            </div>
+
+            <div class="wrap">
+                <div class="content">
+                    <h1>Abstract Factory</h1>
+
+<p>Also Known As: <strong>Kit</strong></p>
+
+<h2>Definition</h2>
+
+<p>Provide an interface for creating families of related or dependent objects
+without specifying their concrete classes.</p>
+
+<h2>Diagram</h2>
+
+<div class="gallery medium">
+    <a href="http://joshldavis.com/rust-design-patterns/img/abstract-factory-structure.png" rel="lightbox" title="Structure of the Abstract Factory Pattern">
+        <img src="http://joshldavis.com/rust-design-patterns/img/abstract-factory-structure.png" width="620">
+        <span>Structure of the Abstract Factory Pattern</span>
+    </a>
+</div>
+
+
+<h2>Problem</h2>
+
+<p>There are times when one is programming on a project and there are a group of
+objects that have something in common. Sometimes the project will also have a
+set of these groups and need to use them interchangeably.</p>
+
+<p>The problem is when we want to use these groups of objects interchangeably yet
+creating the objects becomes a hassle.</p>
+
+<h2>Wrong Solution</h2>
+
+<p>One way to handle this is to just make multiple <code>if</code> statements in the code for
+when objects are created. If the system is in this state, create this object of
+group A, if the system is in this state, create this object of group B and so
+on.</p>
+
+<h2>Correct Solution</h2>
+
+<p>The right way to take care of this is to use the Abstract Factory pattern.
+Instead of making giant <code>if</code> statements, we want to program to an interface
+instead and use the power of object-oriented programming.</p>
+
+<h2>Example</h2>
+
+<p>Apple and Google both make tablets and phones. Each company has a different way
+of creating their products and obviously have different factories where they
+create them.</p>
+
+<p>The thing is that a website that sells Apple and Google devices doesn't care
+about how the factory makes the products. Instead it cares about how to ask the
+factory for a phone/tablet when it needs to. All it cares about is that each
+factory works the same way. In programmer terminology, each factory has the same
+<em>interface</em>.</p>
+
+<h3>Example Diagram</h3>
+
+<div class="gallery medium">
+    <a href="http://joshldavis.com/rust-design-patterns/img/abstract-factory-example.png" rel="lightbox" title="Example of the Abstract Factory Design Pattern.">
+        <img src="http://joshldavis.com/rust-design-patterns/img/abstract-factory-example.png" width="620">
+        <span>Example of the Abstract Factory Design Pattern.</span>
+    </a>
+</div>
+
+
+<h3>Example Code</h3>
+
+<p>View <a href="https://github.com/jdavis/rust-design-patterns/blob/master/patterns/abstract_factory.rs">abstract_factory.rs</a> on GitHub</p>
+
+<div class="highlight"><pre><code class="rust"><span class="cm">/*</span>
+<span class="cm"> * Abstract Factory Design Pattern</span>
+<span class="cm"> * http://joshldavis.com/rust-design-patterns/abstract-factory/</span>
+<span class="cm"> */</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Core Trait that defines a Phone</span>
+<span class="cm"> */</span>
+<span class="k">trait</span> <span class="n">Phone</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="n">call</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Core Trait that defines a Tablet</span>
+<span class="cm"> */</span>
+<span class="k">trait</span> <span class="n">Tablet</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="n">play_games</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Core Trait that defines a Factory</span>
+<span class="cm"> */</span>
+<span class="k">trait</span> <span class="n">Factory</span><span class="o">&lt;</span><span class="n">P</span><span class="o">:</span> <span class="n">Phone</span><span class="p">,</span> <span class="n">T</span><span class="o">:</span> <span class="n">Tablet</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="n">new_phone</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">P</span><span class="p">;</span>
+    <span class="k">fn</span> <span class="n">new_tablet</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="cm">/*</span>
+<span class="cm"> * Define our Apple products. Normally these structs would contain a lot more</span>
+<span class="cm"> * data.</span>
+<span class="cm"> */</span>
+<span class="k">struct</span> <span class="n">iPhone</span><span class="p">;</span>
+
+<span class="k">impl</span> <span class="n">Phone</span> <span class="k">for</span> <span class="n">iPhone</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="n">call</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;Look! I&#39;m calling on an iPhone!&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">iPad</span><span class="p">;</span>
+
+<span class="k">impl</span> <span class="n">Tablet</span> <span class="k">for</span> <span class="n">iPad</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="n">play_games</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;Just playing some games on my iPad.&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Create AppleFactory and implement it for our Apple devices</span>
+<span class="cm"> */</span>
+<span class="k">struct</span> <span class="n">AppleFactory</span><span class="p">;</span>
+
+<span class="k">impl</span> <span class="n">Factory</span><span class="o">&lt;</span><span class="n">iPhone</span><span class="p">,</span> <span class="n">iPad</span><span class="o">&gt;</span> <span class="k">for</span> <span class="n">AppleFactory</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="n">new_phone</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">iPhone</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">iPhone</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">fn</span> <span class="n">new_tablet</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">iPad</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">iPad</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Define our Google products. Like with Apple&#39;s products, these are</span>
+<span class="cm"> * simplified.</span>
+<span class="cm"> */</span>
+
+<span class="k">struct</span> <span class="n">Nexus4</span><span class="p">;</span>
+
+<span class="k">impl</span> <span class="n">Phone</span> <span class="k">for</span> <span class="n">Nexus4</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="n">call</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;Look! I&#39;m calling on a Nexus 4!&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">Nexus10</span><span class="p">;</span>
+
+<span class="k">impl</span> <span class="n">Tablet</span> <span class="k">for</span> <span class="n">Nexus10</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="n">play_games</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;Just playing some games on my Nexus 10.&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Create GoogleFactory and implement it for our Google devices</span>
+<span class="cm"> */</span>
+<span class="k">struct</span> <span class="n">GoogleFactory</span><span class="p">;</span>
+
+<span class="k">impl</span> <span class="n">Factory</span><span class="o">&lt;</span><span class="n">Nexus4</span><span class="p">,</span> <span class="n">Nexus10</span><span class="o">&gt;</span> <span class="k">for</span> <span class="n">GoogleFactory</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="n">new_phone</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Nexus4</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Nexus4</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">fn</span> <span class="n">new_tablet</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Nexus10</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Nexus10</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="k">fn</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Create our two different factories</span>
+    <span class="k">let</span> <span class="n">apple</span> <span class="o">=</span> <span class="n">AppleFactory</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">google</span> <span class="o">=</span> <span class="n">GoogleFactory</span><span class="p">;</span>
+
+    <span class="c1">// Both factories use the same interface, so let&#39;s just use them</span>
+
+    <span class="c1">// Test out creating phones</span>
+    <span class="k">let</span> <span class="n">phone</span> <span class="o">=</span> <span class="n">apple</span><span class="p">.</span><span class="n">new_phone</span><span class="p">();</span>
+    <span class="n">phone</span><span class="p">.</span><span class="n">call</span><span class="p">();</span>
+
+    <span class="k">let</span> <span class="n">phone</span> <span class="o">=</span> <span class="n">google</span><span class="p">.</span><span class="n">new_phone</span><span class="p">();</span>
+    <span class="n">phone</span><span class="p">.</span><span class="n">call</span><span class="p">();</span>
+
+    <span class="c1">// Test out creating tablets</span>
+    <span class="k">let</span> <span class="n">tablet</span> <span class="o">=</span> <span class="n">apple</span><span class="p">.</span><span class="n">new_tablet</span><span class="p">();</span>
+    <span class="n">tablet</span><span class="p">.</span><span class="n">play_games</span><span class="p">();</span>
+
+    <span class="k">let</span> <span class="n">tablet</span> <span class="o">=</span> <span class="n">google</span><span class="p">.</span><span class="n">new_tablet</span><span class="p">();</span>
+    <span class="n">tablet</span><span class="p">.</span><span class="n">play_games</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-39545516-1']);
+          _gaq.push(['_trackPageview']);
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+        
+        
+            
+                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+            
+                <script src="/lib/lightbox/js/lightbox.js" type="text/javascript"></script>
+            
+        
+	</body>
+</html>
