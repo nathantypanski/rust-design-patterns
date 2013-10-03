@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>What is a Design Pattern? - Rust Design Patterns - Josh Davis</title>
+        <meta name="description" content="Explanation of what a Design Pattern actually is." />
+        <meta name="author" content="Josh Davis" />
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <link rel="alternate" type="application/rss+xml" title="Rust Design Patterns" href="http://joshldavis.com//atom.xml">
+    
+        <link href="http://joshldavis.com//css/base.css" rel="stylesheet" type="text/css">
+    
+        <link href="http://joshldavis.com//lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+        <link href="http://joshldavis.com/http://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet" type="text/css">
+    
+    
+        
+    
+    </head>
+
+	<body>
+        <a href="https://github.com/jdavis/rust-design-patterns/">
+            <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+        </a>
+        <div class="container">
+            <div class="side">
+                <ul>
+                    <li><a href="http://joshldavis.com/"><i class="icon-double-angle-left"></i> Return to joshldavis.com</a></li>
+                </ul>
+
+                <div class="logo">
+                    <img src="http://joshldavis.com/rust-design-patterns/img/rust-logo.png" alt="Rust Lang logo"/>
+                </div>
+
+                <h2>Rust Design Patterns</h2>
+                <ul>
+                    <li><a href="http://joshldavis.com/rust-design-patterns">Home</a></li>
+                    <li><a href="https://github.com/jdavis/rust-design-patterns">Source Code</a></li>
+                    <li><a href="https://github.com/jdavis/rust-design-patterns/issues">Issues</a></li>
+                
+                    <li><a href="http://joshldavis.com/rust-design-patterns/what-is-a-design-pattern">What is a Design Pattern?</a></li>
+                
+                    <li><a href="http://joshldavis.com/rust-design-patterns/using-a-design-pattern">How do you use a Design Pattern?</a></li>
+                
+                </ul>
+
+                <h3>Creational</h3>
+                <ul>
+                
+                    <li><a href="http://joshldavis.com/rust-design-patterns/abstract-factory">Abstract Factory</a></li>
+                
+                </ul>
+
+                <h3>Structural</h3>
+                <ul>
+                
+                    <li><a href="http://joshldavis.com/rust-design-patterns/adapter">Adapter</a></li>
+                
+                </ul>
+
+                <h3>Behavioral</h3>
+                <ul>
+                
+                    <li><a href="http://joshldavis.com/rust-design-patterns/chain-of-responsibility">Chain of Responsibility</a></li>
+                
+                </ul>
+            </div>
+
+            <div class="wrap">
+                <div class="content">
+                    <h1>What is a Design Pattern?</h1>
+
+<p>A design pattern is a way to organize and structure software. While the idea
+isn't quite intuitive unless you have a basic understanding of building
+software, let's look at it from a neutral perspective using an analogy.</p>
+
+<h2>Cathedral Analogy</h2>
+
+<p>Imagine you live in the 12th century and are appointed to lead the construction
+of a cathedral. Your name may or may not be <a href="http://en.wikipedia.org/wiki/The_Pillars_of_the_Earth">Tom Builder</a>.</p>
+
+<p>This might seem like a daunting task if you don't have much experience with
+building cathedrals. To give you a foundation (ha, pun) so that you can start
+designing it, you want to study other famous cathedrals.</p>
+
+<p>As you view more and more cathedrals and talk to various other cathedral
+builders, you start to notice certain "patterns" among the great structures. For
+example, you may notice that certain vaulting requires more robust support. You
+might notice that certain materials work better for certain parts of the
+cathedral because it is lighter or possibly sturdier than others.</p>
+
+<p>In order to help future cathedral builders, you want to compile all that you've
+learned into a single volume to help other builders. You want the information
+to be as general as possible such that it can help the most number of people as
+they design and build.</p>
+
+<p>This is exactly what a design pattern is. The fact that it has to do with
+architecture instead of software engineering doesn't matter. The goal of a
+design pattern is always to provide a common solution to a certain problem when
+designing something.</p>
+
+<h2>Software as the Cathedral</h2>
+
+<p>This isn't the first time that software has been likened to building a
+cathedral; Eric S.  Raymond also used the comparison for open source software in
+his seminal essay, <a href="http://www.catb.org/~esr/writings/cathedral-bazaar/cathedral-bazaar/">The Cathedral and the Bazaar</a>.</p>
+
+<p>The idea is still the same; when designing software there are times when
+programming it a certain way will bring far more benefits than the easier
+approach or vice versa.</p>
+
+<p>The hard part is understanding the benefits and shortcomings of various design
+patterns and recognizing when to use them.</p>
+
+<h2>Why would you use/not use a Design Pattern?</h2>
+
+<p>A design pattern can improve various aspects of software engineering. Whether it
+has to do with the immediate improvement of speed to develop, or the future of
+the code base in ways you might not expect.</p>
+
+<p>When a design pattern isn't appropriately selected, it can have negative side
+effects on software development. It's important to choose design patterns based
+on the problem they are trying to solve.</p>
+
+<p>Here are a few important measurements that design patterns can greatly change.</p>
+
+<h3>Development Speed</h3>
+
+<p>A design pattern can hinder the speed of development if a sophisticated design
+isn't needed.</p>
+
+<p>Conversely, using a known design pattern can speed up development because it
+alleviates the hassle of having to think about how all your classes will
+interact and work together.</p>
+
+<h3>Readability</h3>
+
+<p>Readability in programming is a measurement of how easy it is to look at a piece
+(however big) of code and understand what it is doing.</p>
+
+<p>By taking software and changing it so that it fits well-known problems, it gives
+people that aren't familiar with your code base (new developers, managers,
+maintainers, etc.) an easier starting point and an easier time when trying to
+understand the code.</p>
+
+<p>Sometimes one of the hardest parts about understanding a code base is just
+understanding why things are arranged the way they are. The more you can do to
+put things in a logical and well-thought out manner, the less a person reading
+the code will have to do to understand it. Design patterns give a tried and tested
+format as guidelines for doing this.</p>
+
+<h3>Maintainability</h3>
+
+<p>Another measurement that is closely tied to readability, is a way of looking at
+how easy it is to add features and fix bugs in an existing project or code base.</p>
+
+<p>While all programmers are wishful thinkers in that we hope to write code that
+will solve the problem once and never be modified, that is rarely the case.</p>
+
+<p>There are various design patterns (such as the <a href="/">Strategy</a>)</p>
+
+<h3>Simplicity</h3>
+
+<p>There is no denying that a simple approach can sometimes be the best for the
+given project. By using a design pattern, you risk adding more classes and
+obfuscating the code.</p>
+
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-39545516-1']);
+          _gaq.push(['_trackPageview']);
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+        
+        
+            
+        
+	</body>
+</html>

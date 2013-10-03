@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>How do you use a Design Pattern? - Rust Design Patterns - Josh Davis</title>
+        <meta name="description" content="Explanation of how to appropriately apply a Design Pattern." />
+        <meta name="author" content="Josh Davis" />
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <link rel="alternate" type="application/rss+xml" title="Rust Design Patterns" href="http://joshldavis.com//atom.xml">
+    
+        <link href="http://joshldavis.com//css/base.css" rel="stylesheet" type="text/css">
+    
+        <link href="http://joshldavis.com//lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+        <link href="http://joshldavis.com/http://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet" type="text/css">
+    
+    
+        
+    
+    </head>
+
+	<body>
+        <a href="https://github.com/jdavis/rust-design-patterns/">
+            <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+        </a>
+        <div class="container">
+            <div class="side">
+                <ul>
+                    <li><a href="http://joshldavis.com/"><i class="icon-double-angle-left"></i> Return to joshldavis.com</a></li>
+                </ul>
+
+                <div class="logo">
+                    <img src="http://joshldavis.com/rust-design-patterns/img/rust-logo.png" alt="Rust Lang logo"/>
+                </div>
+
+                <h2>Rust Design Patterns</h2>
+                <ul>
+                    <li><a href="http://joshldavis.com/rust-design-patterns">Home</a></li>
+                    <li><a href="https://github.com/jdavis/rust-design-patterns">Source Code</a></li>
+                    <li><a href="https://github.com/jdavis/rust-design-patterns/issues">Issues</a></li>
+                
+                    <li><a href="http://joshldavis.com/rust-design-patterns/what-is-a-design-pattern">What is a Design Pattern?</a></li>
+                
+                    <li><a href="http://joshldavis.com/rust-design-patterns/using-a-design-pattern">How do you use a Design Pattern?</a></li>
+                
+                </ul>
+
+                <h3>Creational</h3>
+                <ul>
+                
+                    <li><a href="http://joshldavis.com/rust-design-patterns/abstract-factory">Abstract Factory</a></li>
+                
+                </ul>
+
+                <h3>Structural</h3>
+                <ul>
+                
+                    <li><a href="http://joshldavis.com/rust-design-patterns/adapter">Adapter</a></li>
+                
+                </ul>
+
+                <h3>Behavioral</h3>
+                <ul>
+                
+                    <li><a href="http://joshldavis.com/rust-design-patterns/chain-of-responsibility">Chain of Responsibility</a></li>
+                
+                </ul>
+            </div>
+
+            <div class="wrap">
+                <div class="content">
+                    <h1>How do you use a Design Pattern?</h1>
+
+<p>First it is very important to understand <a href="/rust-design-patterns/what/">what a design pattern is</a>.</p>
+
+<p>After understanding what it is and why you would want to use a design pattern,
+the steps can be summarized as below:</p>
+
+<ol>
+<li>Identity the Problem</li>
+<li>Find a Design Pattern</li>
+<li>Understand the Design Pattern</li>
+<li>Look at the Example</li>
+<li>Fit the Pattern</li>
+<li>Implement the Pattern</li>
+</ol>
+
+
+<h2>Identity the Problem</h2>
+
+<p>When you are designing software, it is important to look at the trade-offs and
+shortcomings whenever you make a decision about the structure of your code.</p>
+
+<p>A few examples of this could be the following:</p>
+
+<ol>
+<li>If I were to use inheritance here to solve X problem, what side effects would
+it have when this code needs to be extended for Y?</li>
+<li>If I split up the classes in this way, it will solve X. It will make it
+easier to understand but then I introduce the problem Y.</li>
+</ol>
+
+
+<p>Out of the six steps, this might be the most difficult one to master. It
+requires the ability to examine decisions and being able to see the trade-offs
+when designing software.</p>
+
+<h2>Find a Design Pattern</h2>
+
+<p>If the problem has been accurately understood, the next thing to do is to find a
+Design Pattern that will either solve the problem or lessen the impact of it.</p>
+
+<p>This requires knowing some design patterns or at least knowing the categories
+that they fall in. When you know that the problem you are solving deals with
+object instances and instantiating them effectively, it would help to look at
+Creational design patterns.</p>
+
+<h2>Understand the Design Pattern</h2>
+
+<p>Once you've selected the design pattern that will help you. It is well worth
+your time to understand it fully.</p>
+
+<p>Each design pattern on this site has eight parts:</p>
+
+<ol>
+<li>A definition</li>
+<li>List of alternative names (if any)</li>
+<li>A diagram showing a <a href="http://en.wikipedia.org/wiki/Unified_Modeling_Language">UML</a> representation of the pattern</li>
+<li>A common problem the pattern solves</li>
+<li>A wrong solution</li>
+<li>A correct solution using the pattern</li>
+<li>Consequences</li>
+<li>Example code</li>
+</ol>
+
+
+<p>After understanding it, if it doesn't actually solve your problem, you may have
+to go to the previous step of finding one that might solve it.</p>
+
+<h2>Look at the Example</h2>
+
+<p>The example will provide a self contained use case of the pattern in action.</p>
+
+<h2>Fit the Pattern</h2>
+
+<h2>Implement the Pattern</h2>
+
+<p>The implementation of a design pattern will vary greatly depending on the
+language, package layout, and other factors of the software environment.</p>
+
+<p>However, the core idea does not change. An example of this would be implementing
+the <a href="/rust-design-patterns/observer/">Observer pattern</a> in Rust as compared to Java.</p>
+
+<p>In Java, you could use polymorphism or an interface when creating your observer
+pattern.</p>
+
+<p>In Rust, this changes a bit. Rust doesn't have inheritance or polymorphism. It
+does have traits which is very similar to an interface. A Rust programmer
+wouldn't be able to use polymorphism in this case.</p>
+
+<h2>Final Thoughts</h2>
+
+<p>By using a design pattern, the quality of your code and software can be greatly
+increased. It's important to realize the benefit that they can provide and what
+problems they may solve.</p>
+
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-39545516-1']);
+          _gaq.push(['_trackPageview']);
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+        
+        
+            
+        
+	</body>
+</html>
